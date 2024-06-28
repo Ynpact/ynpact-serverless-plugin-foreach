@@ -60,6 +60,6 @@ endpoint_1:
   Type: ssh
 ```
 ## Bug report, enhancement and pull request
-Do not hesitate to [contact us](contact@ynpact.com) for bug report, enhancement or pull request.
+Do not hesitate to [contact us](mailto:contact@ynpact.com) for bug report, enhancement or pull request.
 
-Under ISC license.
+Under MIT license.
