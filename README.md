@@ -11,9 +11,10 @@ The **foreach** operator allows you to repeat a yaml block, iterating on a list 
 ## Usage
 
 ### repeat operator
-${repeat(template, count, start = 0, pad = 0)}
+```${repeat(template, count, start = 0, pad = 0)}```
+
 serverless.yml
-```
+```yaml
 custom:
   template:
     bucket_{{i}}:
@@ -22,7 +23,7 @@ Resources:
   ${   repeat(${self:custom.template}, 3   }
 ```
 resultat generé par l'opérateur :
-```
+```yaml
 bucket_0:
   Name: bucket_0
 bucket_1:
@@ -32,8 +33,10 @@ bucket_2:
 ```
 You can optionnaly use the operator parameter start and pad to respectively start the counter from another value of 0 and pad to have the indice padded with x "0".
 ### foreach operator
+```${repeat(template, list-of-map)}```
+
 serverless.yml
-```
+```yaml
 custom:
   template:
     endpoint_{{i}}:
@@ -48,7 +51,7 @@ Resources:
   ${   foreach(${self:custom.template}, ${self:custom.channelsParams}   }
 ```
 resultat generé par l'opérateur :
-```
+```yaml
 endpoint_0:
   Name: foo
   Type: https
