@@ -1,0 +1,30 @@
+{
+  "name": "serverless-plugin-foreach",
+  "version": "1.0.0",
+  "description": "This plugin provides a way to repeat blocks multiple times, with customizable fields, in serverless templates.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "serverless",
+    "framework",
+    "foreach",
+    "for",
+    "each",
+    "multiply",
+    "repeat",
+    "field",
+    "template",
+    "loop",
+    "terraform"
+  ],
+  "author": "alexandre.walzberg@ynpact.com",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^10.5.2"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
