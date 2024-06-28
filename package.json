@@ -1,5 +1,5 @@
 {
-  "name": "serverless-plugin-foreach",
+  "name": "@ynpact/serverless-plugin-foreach",
   "version": "1.0.0",
   "description": "This plugin provides a way to repeat blocks multiple times, with customizable fields, in serverless templates.",
   "main": "index.js",
@@ -23,6 +23,10 @@
   "license": "MIT",
   "devDependencies": {
     "mocha": "^10.5.2"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/Ynpact/serverless-plugin-foreach.git"
   },
   "dependencies": {
     "js-yaml": "^4.1.0"

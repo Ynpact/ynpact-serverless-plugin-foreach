@@ -6,7 +6,7 @@ The **repeat** operator allows to repeat n time a yaml block. In this templated 
 The **foreach** operator allows you to repeat a yaml block, iterating on a list of string map. In the templated block, you can use {{i}} and {{i.\<key\>}} and it will be replaced repectively by the index and the value of the string at this key of the map.
 
 ## Setup
-```npm install serverless-plugin-foreach --save-dev```
+```npm install @ynpact/serverless-plugin-foreach --save-dev```
 
 ## Usage
 
@@ -59,6 +59,8 @@ endpoint_1:
   Name: bar
   Type: ssh
 ```
+## Test
+```npm test```
 ## Bug report, enhancement and pull request
 Do not hesitate to [contact us](mailto:contact@ynpact.com) for bug report, enhancement or pull request.
 
