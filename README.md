@@ -33,7 +33,7 @@ bucket_2:
 ```
 You can optionnaly use the operator parameter start and pad to respectively start the counter from another value of 0 and pad to have the indice padded with x "0".
 ### foreach operator
-```${repeat(template, list-of-map)}```
+```${repeat(template, list-of-string-value-map)}```
 
 serverless.yml
 ```yaml
