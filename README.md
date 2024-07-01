@@ -17,19 +17,28 @@ serverless.yml
 ```yaml
 custom:
   template:
-    bucket_{{i}}:
-        Name: bucket_{{i}}
-Resources:
-  ${   repeat(${self:custom.template}, 3   }
+    bucket{{i}}:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: bucket_{{i}}
+resources:
+  - ${repeat(${self:custom.template}, 3}
 ```
 resultat generé par l'opérateur :
 ```yaml
-bucket_0:
-  Name: bucket_0
-bucket_1:
-  Name: bucket_1
-bucket_2:
-  Name: bucket_2
+Resources:
+  bucket0:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: bucket_0
+  bucket1:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: bucket_1
+  bucket2:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: bucket_2
 ```
 You can optionnaly use the operator parameter start and pad to respectively start the counter from another value of 0 and pad to have the indice padded with x "0".
 ### foreach operator
@@ -39,25 +48,32 @@ serverless.yml
 ```yaml
 custom:
   template:
-    endpoint_{{i}}:
-        Name: {{i.name}}
-        Type: {{i.type}}
-  endpointsParams:
-    - name: foo
-      type: https
-    - name: bar
-      type: ssh
-Resources:
-  ${   foreach(${self:custom.template}, ${self:custom.channelsParams}   }
+    bucket{{i}}:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: "{{i.name}}"
+        AccessControl: "{{i.access}}"
+  bucketParams:
+    - name: my-public-bucket
+      access: PublicRead
+    - name: my-private-bucket
+      access: Private
+resources:
+  - ${foreach(${self:custom.template}, ${self:custom.bucketParams}}
 ```
 resultat generé par l'opérateur :
 ```yaml
-endpoint_0:
-  Name: foo
-  Type: https
-endpoint_1:
-  Name: bar
-  Type: ssh
+Resources:
+  bucket0:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: my-public-bucket
+      AccessControl: PublicRead
+  bucket1:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: my-private-bucket
+      AccessControl: Private
 ```
 ## Test
 ```npm test```

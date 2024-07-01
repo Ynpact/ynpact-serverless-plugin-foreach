@@ -3,16 +3,15 @@
 const yaml = require('js-yaml');
  
 class ResourceMultiplier {
-  constructor(serverless) {
+  constructor(serverless, cliOptions, { log }) {
     this.serverless = serverless;
     this.configurationVariablesSources = {
         repeat: {
             async resolve({ address, params }) {
-                
                 const fileContent = JSON.stringify(params[0]);
                 const start = params[2] ? parseInt(params[2]) : 0
                 const padding = params[3] ? parseInt(params[3]) : 0
-                
+
                 let output = {}
 
                 for(let i=start; i<start + parseInt(params[1]); i++){
@@ -23,6 +22,7 @@ class ResourceMultiplier {
                     for(let key of Object.keys(data)) output[key] = data[key]
                 }
                 const result = {value: {Resources: output}}
+                log.verbose("Repeat operator output: ", result)
                 return result
             },
         },
@@ -45,10 +45,11 @@ class ResourceMultiplier {
                     for(let key of Object.keys(data)) output[key] = data[key]
                 }
                 const result = {value: {Resources: output}}
+                log.verbose("Foreach operator output: ", result)
                 return result
-            },
+            }
         }
-      };
+    }
   }
 }
 

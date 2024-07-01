@@ -3,7 +3,7 @@ var plugin = require('../index.js');
 
 describe('Test plugin', function () {
     
-    pluginInstance = new plugin()
+    pluginInstance = new plugin({}, {}, {log: {verbose:() => console.log()} })
     
     describe('repeat operator', function () {
         it('simple use', async () => {
