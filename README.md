@@ -15,6 +15,8 @@ The **foreach** operator allows you to repeat a yaml block, iterating on a list 
 
 serverless.yml
 ```yaml
+plugins:
+  - '@ynpact/serverless-plugin-foreach'
 custom:
   template:
     bucket{{i}}:
@@ -22,7 +24,7 @@ custom:
       Properties:
         BucketName: bucket_{{i}}
 resources:
-  - ${repeat(${self:custom.template}, 3}
+  - ${repeat(${self:custom.template}, 3)}
 ```
 resultat generé par l'opérateur :
 ```yaml
@@ -42,24 +44,27 @@ Resources:
 ```
 You can optionnaly use the operator parameter start and pad to respectively start the counter from another value of 0 and pad to have the indice padded with x "0".
 ### foreach operator
-```${repeat(template, list-of-string-value-map)}```
+```${foreach(template, list-of-string-value-map)}```
 
 serverless.yml
 ```yaml
+plugins:
+  - '@ynpact/serverless-plugin-foreach'
 custom:
   template:
     bucket{{i}}:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: "{{i.name}}"
-        AccessControl: "{{i.access}}"
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: "{{i.blockPublicAcls}}"
   bucketParams:
     - name: my-public-bucket
-      access: PublicRead
+      blockPublicAcls: false
     - name: my-private-bucket
-      access: Private
+      blockPublicAcls: true
 resources:
-  - ${foreach(${self:custom.template}, ${self:custom.bucketParams}}
+  - ${foreach(${self:custom.template}, ${self:custom.bucketParams})}
 ```
 resultat generé par l'opérateur :
 ```yaml
@@ -68,12 +73,14 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: my-public-bucket
-      AccessControl: PublicRead
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
   bucket1:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: my-private-bucket
-      AccessControl: Private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
 ```
 ## Test
 ```npm test```
