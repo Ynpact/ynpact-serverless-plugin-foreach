@@ -32,6 +32,6 @@
     "js-yaml": "^4.1.0"
   },
   "peerDependencies": {
-    "serverless": "^4.2.4"
+    "serverless": "3 || 4"
   }
 }
