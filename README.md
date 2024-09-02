@@ -5,7 +5,7 @@ The **repeat** operator allows to repeat n time a yaml block. In this templated 
 
 The **foreach** operator allows you to repeat a yaml block, iterating on a list of string map. In the templated block, you can use {{i}} and {{i.\<key\>}} and it will be replaced repectively by the index and the value of the string at this key of the map.
 
-The **ternary** operator mimic the ternary if/else operation.
+The **ternary** operator mimic the ternary if/else value evaluation.
 
 ## Setup
 ```npm install @ynpact/serverless-plugin-foreach --save-dev```
@@ -94,7 +94,7 @@ plugins:
 custom:
   isProduction: ${ternary(${opt:stage}, "prod", "true", "false")}
 ```
-resultat generé par l'opérateur :
+resultat generé par l'opérateur, avec stage=prod :
 ```yaml
 "true"
 ```
