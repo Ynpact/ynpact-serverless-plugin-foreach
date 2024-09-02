@@ -1,5 +1,5 @@
 # Serverless plugin foreach
-This plugin, devolped by [Ynpact](https://www.ynpact.com), provide 2 operators for use in the serverless framework template. Those mimic the Terraform / Open Tofy count or foreach operators.
+This plugin, devolped by [Ynpact](https://www.ynpact.com), provide 2 operators for use in the serverless framework template. Those mimic the Terraform / Open Tofy count or foreach operators. [See our blog post](https://www.ynpact.com/serverless-plugin-en/)
 
 The **repeat** operator allows to repeat n time a yaml block. In this templated block you can use {{i}} anywhere and it will be replaced by the repeat-index.
 

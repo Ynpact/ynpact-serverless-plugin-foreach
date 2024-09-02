@@ -23,8 +23,8 @@ describe('Test plugin', function () {
         });
     });
 
-    describe('repeat operator', function () {
-        it('foreach operator', async () => {
+    describe('foreach operator', function () {
+        it('simple use', async () => {
             const params = [
                 {"endpoint{{i}}": {"url": "{{i.url}}", "name": "{{i.name}}"}},
                 [
@@ -34,6 +34,39 @@ describe('Test plugin', function () {
             ]
             let test = await pluginInstance.configurationVariablesSources.foreach.resolve({adress: null, params: params})
             assert.equal(JSON.stringify(test), '{"value":{"Resources":{"endpoint0":{"url":"url-foo","name":"name-foo"},"endpoint1":{"url":"url-bar","name":"name-bar"}}}}')
+        });
+    });
+
+    describe('ternary operator', function () {
+        it('simple use, number->string and true', async () => {
+            const params = [1,1, "true", "false"]
+            let test = await pluginInstance.configurationVariablesSources.ternary.resolve({adress: null, params: params})
+            assert.equal(JSON.stringify(test), '{"value":"true"}')
+        });
+        it('simple use, number->string and false', async () => {
+            const params = [1,0, "true", "false"]
+            let test = await pluginInstance.configurationVariablesSources.ternary.resolve({adress: null, params: params})
+            assert.equal(JSON.stringify(test), '{"value":"false"}')
+        });
+        it('simple use, string->string and true', async () => {
+            const params = ["hola","hola", "good", "bad"]
+            let test = await pluginInstance.configurationVariablesSources.ternary.resolve({adress: null, params: params})
+            assert.equal(JSON.stringify(test), '{"value":"good"}')
+        });
+        it('simple use, string->string and true', async () => {
+            const params = ["hola","hello", "good", "bad"]
+            let test = await pluginInstance.configurationVariablesSources.ternary.resolve({adress: null, params: params})
+            assert.equal(JSON.stringify(test), '{"value":"bad"}')
+        });
+        it('simple use, string->number and true', async () => {
+            const params = ["hola","hola", 10, 0]
+            let test = await pluginInstance.configurationVariablesSources.ternary.resolve({adress: null, params: params})
+            assert.equal(JSON.stringify(test), '{"value":10}')
+        });
+        it('simple use, string->number and false', async () => {
+            const params = ["hola","hello", 10, 0]
+            let test = await pluginInstance.configurationVariablesSources.ternary.resolve({adress: null, params: params})
+            assert.equal(JSON.stringify(test), '{"value":0}')
         });
     });
 

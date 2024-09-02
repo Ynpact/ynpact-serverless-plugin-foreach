@@ -48,6 +48,14 @@ class ResourceMultiplier {
                 log.verbose("Foreach operator output: ", result)
                 return result
             }
+        },
+        ternary: {
+            async resolve({ address, params }) {
+                const [left, right, truthy, falsy] = params;
+                return {
+                  value: left === right ? truthy : falsy,
+                };
+            }
         }
     }
   }
