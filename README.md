@@ -1,9 +1,11 @@
 # Serverless plugin foreach
-This plugin, devolped by [Ynpact](https://www.ynpact.com), provide 2 operators for use in the serverless framework template. Those mimic the Terraform / Open Tofy count or foreach operators. [See our blog post](https://www.ynpact.com/serverless-plugin-en/)
+This plugin, devolped by [Ynpact](https://www.ynpact.com), provide 3 operators for use in the serverless framework template. Those mimic the Terraform / Open Tofy count, foreach and ternary operators. [See our blog post](https://www.ynpact.com/serverless-plugin-en/)
 
 The **repeat** operator allows to repeat n time a yaml block. In this templated block you can use {{i}} anywhere and it will be replaced by the repeat-index.
 
 The **foreach** operator allows you to repeat a yaml block, iterating on a list of string map. In the templated block, you can use {{i}} and {{i.\<key\>}} and it will be replaced repectively by the index and the value of the string at this key of the map.
+
+The **ternary** operator mimic the ternary if/else operation.
 
 ## Setup
 ```npm install @ynpact/serverless-plugin-foreach --save-dev```
@@ -81,6 +83,20 @@ Resources:
       BucketName: my-private-bucket
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
+```
+### ternary operator
+```${ternary(valueToTest, expectedValue, returnedValueIfEqual, returnedValueIfNot)}```
+
+serverless.yml
+```yaml
+plugins:
+  - '@ynpact/serverless-plugin-foreach'
+custom:
+  isProduction: ${ternary(${opt:stage}, "prod", "true", "false")}
+```
+resultat generé par l'opérateur :
+```yaml
+"true"
 ```
 ## Test
 ```npm test```
