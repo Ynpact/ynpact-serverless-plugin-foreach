@@ -51,9 +51,8 @@ class ResourceMultiplier {
         },
         ternary: {
             async resolve({ address, params }) {
-                const [left, right, truthy, falsy] = params;
                 return {
-                  value: left === right ? truthy : falsy,
+                  value: params[0] === params[1] ? params[2] : params[3],
                 };
             }
         }
