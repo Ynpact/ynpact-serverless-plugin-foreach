@@ -7,6 +7,13 @@ The **foreach** operator allows you to repeat a yaml block, iterating on a list 
 
 The **ternary** operator mimic the ternary if/else value evaluation.
 
+> [!IMPORTANT]  
+> If you use the plugin with serverless v4, you can get issues using the plugin by referencing template and parameters to yml block **INSIDE** the serverless.yml.
+> Indeed, it seems that allthough serverless framework state the opposite, there are difference in the plugin interface and it makes problem.
+> 
+> **However, and fortunately, this plugin can still be used with serverless v4 using the ${file(...):...} syntax, as stated as a tips at the end of this README** (and this works also with v3)
+
+
 ## Setup
 ```npm install @ynpact/serverless-plugin-foreach --save-dev```
 
@@ -97,6 +104,14 @@ custom:
 resultat generé par l'opérateur, avec stage=prod :
 ```yaml
 "true"
+```
+## Tips
+You can also use the 2 operators foreach and repeat in conjunction with the “file” operator to externalize your template and configuration into separate files as follows:
+```yaml
+plugins:
+  - '@ynpact/serverless-plugin-foreach'
+resources:
+  - ${foreach(   ${file(template/bucketTemplate.yml.tpl)}, ${file(conf/${opt:stage}.yml):buketsParams}   )}
 ```
 ## Test
 ```npm test```
