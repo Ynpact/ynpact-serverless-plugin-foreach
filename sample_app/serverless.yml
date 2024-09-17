@@ -1,0 +1,36 @@
+service: service
+
+plugins:
+  - '@ynpact/serverless-plugin-foreach'
+custom:
+  templateRepeat:
+    bucket{{i}}:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: bucket_{{i}}
+  templateForeach:
+    bucketFE{{i}}:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: "{{i.name}}"
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: "{{i.blockPublicAcls}}"
+  bucketParams:
+    - name: my-public-bucket
+      blockPublicAcls: false
+    - name: my-private-bucket
+      blockPublicAcls: true
+
+provider:
+  name: aws
+  region: eu-west-1
+  runtime: nodejs18.x
+  stage: ${opt:stage, 'dev'}
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    LOG_LEVEL: "debug"
+
+
+resources:
+  - ${repeat(${self:custom.templateRepeat}, 3)}
+  - ${foreach(${self:custom.templateForeach}, ${self:custom.bucketParams})}
