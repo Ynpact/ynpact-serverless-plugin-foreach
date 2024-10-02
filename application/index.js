@@ -51,10 +51,7 @@ class ResourceMultiplier {
         },
         ternary: {
             async resolve({ address, params }) {
-                console.log("###########################")
-                console.log(params)
-                console.log("###########################")
-                result = (params[0] === params[1] ? params[2] : params[3])
+                let result = (params[0] === params[1] ? params[2] : params[3])
                 return {
                   value: result,
                 };

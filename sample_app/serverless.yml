@@ -28,7 +28,7 @@ provider:
   stage: ${opt:stage, 'dev'}
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
-    LOG_LEVEL: "debug"
+    LOG_LEVEL: ${ternary( ${opt:stage}, "dev", "debug", "warn")}
 
 
 resources:
